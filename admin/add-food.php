@@ -7,10 +7,10 @@
         <br><br>
 
         <?php 
-            if(isset($_SESSION['upload']))
+            if(isset($_SESSION['upload'])) // Check if 'upload' session is set
             {
-                echo $_SESSION['upload'];
-                unset($_SESSION['upload']);
+                echo $_SESSION['upload']; // Display 'upload' session message
+                unset($_SESSION['upload']); // Clear the 'upload' session message
             }
         ?>
 
@@ -52,23 +52,23 @@
                         <select name="category">
 
                             <?php 
-                                //tworzymy kod PHP do wyświetlania kategorii z DB
-                                //1. Ustaw query aby zebrało z bazy
+                                // Tworzymy kod PHP do wyświetlania kategorii z DB
+                                // 1. Ustaw query aby zebrało z bazy
                                 $sql = "SELECT * FROM tbl_category WHERE active='Yes'";
                                 
-                                //Wykonaj Query
+                                // Wykonaj Query
                                 $res = mysqli_query($conn, $sql);
 
-                                //Policz rzędy
+                                // Policz rzędy
                                 $count = mysqli_num_rows($res);
 
-                                //if >0 to dobrze, else coś się zepsuło 
-                                if($count>0)
+                                // If > 0 to dobrze, else coś się zepsuło 
+                                if($count > 0)
                                 {
-                                    // >0 jest
-                                    while($row=mysqli_fetch_assoc($res))
+                                    // > 0 jest
+                                    while($row = mysqli_fetch_assoc($res))
                                     {
-                                        //Zbierz detale kategorii
+                                        // Zbierz detale kategorii
                                         $id = $row['id'];
                                         $title = $row['title'];
 
@@ -81,14 +81,14 @@
                                 }
                                 else
                                 {
-                                    //=<0 jest
+                                    // <= 0 jest
                                     ?>
                                     <option value="0">Nie znaleziono kategorii</option>
                                     <?php
                                 }
                             
 
-                                //2. Display on Drpopdown
+                                // 2. Display on Drpopdown
                             ?>
 
                         </select>
@@ -107,7 +107,7 @@
                     <td>Aktywne: </td>
                     <td>
                         <input type="radio" name="active" value="Tak"> Tak
-                        <input type="radio" name="active" value="Nie "> Nie
+                        <input type="radio" name="active" value="Nie"> Nie
                     </td>
                 </tr>
 
@@ -124,27 +124,28 @@
         
         <?php 
 
-            //Sprawdź czy guzik jest wciśnięty
+            // Sprawdź czy guzik jest wciśnięty
 
             if(isset($_POST['submit']))
             {
-                //Dodaj jedzenie do bazy
-                //echo "Kliknięted";
+                // Dodaj jedzenie do bazy
+                // echo "Kliknięted";
+                //Pozostałość po testach
                 
-                //1. Zbierz dane z formularza
+                // 1. Zbierz dane z formularza
                 $title = $_POST['title'];
                 $description = $_POST['description'];
                 $price = $_POST['price'];
                 $category = $_POST['category'];
 
-                        //Sprawdź czy guzik jest wciśnięty
+                // Sprawdź czy guzik jest wciśnięty
                 if(isset($_POST['featured']))
                 {
                     $featured = $_POST['featured'];
                 }
                 else
                 {
-                    $featured = "No"; //Ustaw domyślne
+                    $featured = "No"; // Ustaw domyślne
                 }
 
                 if(isset($_POST['active']))
@@ -153,47 +154,47 @@
                 }
                 else
                 {
-                    $active = "No"; //Ustaw domyślne
+                    $active = "No"; // Ustaw domyślne
                 }
 
-                //2. Upload zdj jak wybierzesz
-                //Sprawdź czy selected, jeśli tak to upload
+                // 2. Upload zdj jak wybierzesz
+                // Sprawdź czy selected, jeśli tak to upload
                 if(isset($_FILES['image']['name']))
                 {
-                    //Zbierz info o zdj
+                    // Zbierz info o zdj
                     $image_name = $_FILES['image']['name'];
 
-                    //Sprawdź czy selected, jeśli tak to upload
-                    if($image_name!="")
+                    // Sprawdź czy selected, jeśli tak to upload
+                    if($image_name != "")
                     {
-                        //Wybraned
-                        //A. Rename zdj
-                        //Zbierz rozszerzenie pliku (jpg, png, gif, i pozostałe)
+                        // Wybraned
+                        // A. Rename zdj
+                        // Zbierz rozszerzenie pliku (jpg, png, gif, i pozostałe)
                         $ext = end(explode('.', $image_name));
 
                         // Nowa nazwa dla zdj 
                         $image_name = "Food-Name-".rand(0000,9999).".".$ext; 
 
-                        //B.Upload zdj
-                        //Zbierz info o zdj
+                        // B. Upload zdj
+                        // Zbierz info o zdj
 
                         // Źródło to aktualna ścieżka 
                         $src = $_FILES['image']['tmp_name'];
 
-                        //Ścieżka docelowa
+                        // Ścieżka docelowa
                         $dst = "../images/food/".$image_name;
 
-                        //W końcu upload
+                        // W końcu upload
                         $upload = move_uploaded_file($src, $dst);
 
-                        //Zobacz czy uploaded
-                        if($upload==false)
+                        // Zobacz czy uploaded
+                        if($upload == false)
                         {
-                            //Error wyszedł
-                            //Redirect
+                            // Error wyszedł
+                            // Redirect
                             $_SESSION['upload'] = "<div class='error'>Nie wysłało się zdj, sprawdź neta lub kod.</div>";
                             header('location:'.SITEURL.'admin/add-food.php');
-                            //die.
+                            // die.
                             die();
                         }
 
@@ -202,12 +203,12 @@
                 }
                 else
                 {
-                    $image_name = ""; //default jako puste.
+                    $image_name = ""; // default jako puste.
                 }
 
-                //3.Wsadź do bazy
+                // 3. Wsadź do bazy
 
-                //Ustaw query aby wrzuciło do bazy jedzenie
+                // Ustaw query aby wrzuciło do bazy jedzenie
                 $sql2 = "INSERT INTO tbl_food SET 
                     title = '$title',
                     description = '$description',
@@ -218,20 +219,20 @@
                     active = '$active'
                 ";
 
-                //Wykonaj Query
+                // Wykonaj Query
                 $res2 = mysqli_query($conn, $sql2);
 
-                //Sprawdź czy wrzuciło do bazy
-                //4. Redirect do zarządzania
+                // Sprawdź czy wrzuciło do bazy
+                // 4. Redirect do zarządzania
                 if($res2 == true)
                 {
-                    //Wrzuciło prawidłowo
+                    // Wrzuciło prawidłowo
                     $_SESSION['add'] = "<div class='success'>Jedzenie zostało dodane</div>";
                     header('location:'.SITEURL.'admin/manage-food.php');
                 }
                 else
                 {
-                    //Błąd w wrzucaniu
+                    // Błąd w wrzucaniu
                     $_SESSION['add'] = "<div class='error'>Jedzenie nie zostało wrzucone.</div>";
                     header('location:'.SITEURL.'admin/manage-food.php');
                 }
@@ -240,7 +241,6 @@
             }
 
         ?>
-
 
     </div>
 </div>

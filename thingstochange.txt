@@ -1,0 +1,6 @@
+1. Names of the files, those will be most likely displayed in the URL, and we want to avoid that at all costs
+Name of the classes in HTML and CSS  people most likely won't attempt to view that, but they might and we want to avoid any affilationto original project since it is visible publically, and that means exposing the PHP code which should be kept private
+Add input san for all inputs, especially the admin login, and change the names to obfuscated ones
+
+Maybe:
+Add option for users to login and store their order information in DB, all hashed using MD5 salted

@@ -1,25 +1,31 @@
 /* CSS for wszystkiego praktycznie */
+/* do edycji, okoomentowania jak się tylko da - job for chatgpt */
 
+/* Universal Styles */
 * {
     margin: 0 0;
     padding: 0 0;
     font-family: Arial, Helvetica, sans-serif;
 }
 
+/* Container Styles */
 .container {
     width: 100%;
     margin: 2%;
     padding: 0%;
 }
 
+/* Responsive Image */
 .img-responsive {
     width: 100%;
 }
 
+/* Rounded Image Corners */
 .img-curve {
     border-radius: 15px;
 }
 
+/* Text Alignment */
 .text-right {
     text-align: right;
 }
@@ -32,15 +38,18 @@
     text-align: left;
 }
 
+/* Text Color */
 .text-white {
     color: darkblue;
 }
 
+/* Clearfix for Floating Elements */
 .clearfix {
     clear: both;
     float: none;
 }
 
+/* Anchor (Link) Styles */
 a {
     color: #5d9e5f;
     text-decoration: none;
@@ -50,6 +59,7 @@ a:hover {
     color: #5d9e5f;
 }
 
+/* Button Styles */
 .btn {
     padding: 1%;
     border: none;
@@ -68,6 +78,7 @@ a:hover {
     background-color: #5d9e5f;
 }
 
+/* Heading Styles */
 h2 {
     color: #2f3542;
     font-size: 2rem;
@@ -78,6 +89,7 @@ h3 {
     font-size: 1.5rem;
 }
 
+/* Floating Container Styles */
 .float-container {
     position: relative;
 }
@@ -88,6 +100,7 @@ h3 {
     left: 40%;
 }
 
+/* Fieldset Styles */
 fieldset {
     border: 1px solid white;
     margin: 5%;
@@ -95,6 +108,7 @@ fieldset {
     border-radius: 5px;
 }
 
+/* Error and Success Messages */
 .error {
     padding: 2%;
     color: red;
@@ -105,14 +119,15 @@ fieldset {
     color: green;
 }
 
+/* Navbar Styles */
 
-/* CSS dla navbara */
-
+/* Logo Styles */
 .logo {
     width: 10%;
     float: left;
 }
 
+/* Menu Styles */
 .menu {
     line-height: 60px;
 }
@@ -127,9 +142,9 @@ fieldset {
     font-weight: bold;
 }
 
+/* Food Search Styles */
 
-/* CSS dla wyszukiwarki jedzenia */
-
+/* Food Search Container Styles */
 .food-search {
     background-image: url(../images/767277.jpg);
     background-size: cover;
@@ -138,6 +153,7 @@ fieldset {
     padding: 20% 0;
 }
 
+/* Input Field in Food Search */
 .food-search input[type="search"] {
     width: 50%;
     padding: 1%;
@@ -146,6 +162,7 @@ fieldset {
     border-radius: 5px;
 }
 
+/* Second Food Search Container Styles */
 .food-search2 {
     background-image: url(../images/ibg.jpg);
     background-size: cover;
@@ -154,6 +171,7 @@ fieldset {
     padding: 7% 0;
 }
 
+/* Input Field in Second Food Search */
 .food-search2 input[type="search"] {
     width: 50%;
     padding: 1%;
@@ -162,28 +180,30 @@ fieldset {
     border-radius: 5px;
 }
 
+/* Category Styles */
 
-/* CSS dla kategorii */
-
+/* Categories Section */
 .categories {
     padding: 4% 0;
 }
 
+/* Individual Category Box */
 .box-3 {
     width: 28%;
     float: left;
     margin: 2%;
 }
 
+/* Food Menu Styles */
 
-/* CSS dla menu jedzenia */
-
+/* Food Menu Section */
 .food-menu {
     background-image: url("../images/20533634.jpg");
     background-color: #cccccc;
     padding: 4% 0;
 }
 
+/* Food Menu Box */
 .food-menu-box {
     width: 43%;
     margin: 1%;
@@ -193,30 +213,34 @@ fieldset {
     border-radius: 15px;
 }
 
+/* Food Menu Image */
 .food-menu-img {
     width: 25%;
     float: left;
 }
 
+/* Food Menu Description */
 .food-menu-desc {
     width: 100%;
     float: left;
     margin-left: 8%;
 }
 
+/* Food Price Styles */
 .food-price {
     font-size: 1.2rem;
     margin: 2% 0;
 }
 
+/* Food Detail Styles */
 .food-detail {
     font-size: 1rem;
     color: #747d8c;
 }
 
+/* Social Media Styles */
 
-/* CSS dla sociali */
-
+/* Social Media Icons */
 .social ul {
     list-style-type: none;
 }
@@ -226,14 +250,15 @@ fieldset {
     padding: 1%;
 }
 
+/* Order Form Styles */
 
-/* CSS dla zamówień */
-
+/* Order Form Container */
 .order {
     width: 50%;
     margin: 0 auto;
 }
 
+/* Responsive Input Field */
 .input-responsive {
     width: 96%;
     padding: 1%;
@@ -243,14 +268,15 @@ fieldset {
     font-size: 1rem;
 }
 
+/* Order Form Label */
 .order-label {
     margin-bottom: 1%;
     font-weight: bold;
 }
 
+/* Media Query for Small Screens */
 
-/* CSS dla mobilek i mniejszych ekraników */
-
+/* Responsive Styles for Screens <= 768px */
 @media only screen and (max-width: 768px) {
     .logo {
         width: 80%;

@@ -1,24 +1,29 @@
+/* Universal Styles */
 * {
     margin: 0;
     padding: 0;
     font-family: Arial, Helvetica, sans-serif;
 }
 
+/* Wrapper Styles */
 .wrapper {
     padding: 1%;
     width: 80%;
     margin: 0 auto;
 }
 
+/* Text Alignment */
 .text-center {
     text-align: center;
 }
 
+/* Clearfix for Floating Elements */
 .clearfix {
     float: none;
     clear: both;
 }
 
+/* Table Widths */
 .tbl-full {
     width: 100%;
 }
@@ -27,32 +32,36 @@
     width: 30%;
 }
 
+/* Table Styles */
 table {
     border-collapse: collapse;
     width: 100%;
 }
 
-th,
-td {
+th, td {
     padding: 8px;
     text-align: left;
     border-bottom: 1px solid #ddd;
 }
 
+/* Table Row Hover Effect */
 tr:hover {
     background-color: #f5f5f5;
 }
 
+/* Table Header Styles */
 table tr th {
     border-bottom: 1px solid black;
     padding: 1%;
     text-align: left;
 }
 
+/* Table Cell Styles */
 table tr td {
     padding: 1%;
 }
 
+/* Primary Button Styles */
 .btn-primary {
     background-color: #1e90ff;
     padding: 1%;
@@ -61,10 +70,12 @@ table tr td {
     font-weight: bold;
 }
 
+/* Primary Button Hover Effect */
 .btn-primary:hover {
     background-color: #3742fa;
 }
 
+/* Secondary Button Styles */
 .btn-secondary {
     background-color: #7bed9f;
     padding: 1%;
@@ -73,10 +84,12 @@ table tr td {
     font-weight: bold;
 }
 
+/* Secondary Button Hover Effect */
 .btn-secondary:hover {
     background-color: #2ed573;
 }
 
+/* Danger Button Styles */
 .btn-danger {
     background-color: #ff6b81;
     padding: 1%;
@@ -85,21 +98,23 @@ table tr td {
     font-weight: bold;
 }
 
+/* Danger Button Hover Effect */
 .btn-danger:hover {
     background-color: #5d9e5f;
 }
 
+/* Success Message Styles */
 .success {
     color: #2ed573;
 }
 
+/* Error Message Styles */
 .error {
     color: #5d9e5f;
 }
 
-
 /* CSS dla menu strony */
-
+/* Menu Styles */
 .menu {
     border-bottom: 1px solid blue;
     background-color: aqua;
@@ -114,26 +129,26 @@ table tr td {
     padding: 1%;
 }
 
+/* Menu Link Styles */
 .menu ul li a {
     text-decoration: none;
     font-weight: bold;
     color: darkorange;
 }
 
+/* Menu Link Hover Effect */
 .menu ul li a:hover {
     color: red;
 }
-
-
 /* CSS for głównego kontentu strony*/
-
-
+/* Main Content Styles */
 .main-content {
     background-color: #f1f2f6;
     padding: 3% 0;
     background-image: url("../images/826921.jpg");
 }
 
+/* Column Styles */
 .col-4 {
     width: 18%;
     background-color: white;
@@ -141,22 +156,17 @@ table tr td {
     padding: 2%;
     float: left;
 }
-
-
 /* CSS for stopki */
-
+/* Footer Styles */
 .footer {
     background-color: aqua;
     color: white;
 }
-
-
 /* CSS for logowania */
-
+/* Login Form Styles */
 .login {
     border: 1px solid grey;
     width: 20%;
     margin: 10% auto;
     padding: 2%;
 }
-

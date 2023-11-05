@@ -1,0 +1,77 @@
+/* CSS for a Table (temporary, for editing and highlighting) */
+
+/* Table Styles */
+.tg {
+    border-collapse: collapse;
+    border-color: #aabcfe;
+    border-spacing: 0;
+    margin: 0px auto;
+}
+
+/* Table Data Cell Styles */
+.tg td {
+    background-color: #e8edff;
+    border-color: #aabcfe;
+    border-style: solid;
+    border-width: 1px;
+    color: #669;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    overflow: hidden;
+    padding: 10px 5px;
+    word-break: normal;
+}
+
+/* Table Header Cell Styles */
+.tg th {
+    background-color: #b9c9fe;
+    border-color: #aabcfe;
+    border-style: solid;
+    border-width: 1px;
+    color: #039;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    font-weight: normal;
+    overflow: hidden;
+    padding: 10px 5px;
+    word-break: normal;
+}
+
+/* Specific Cell Styles (tg-x1q4 and tg-52ho) */
+.tg .tg-x1q4 {
+    border-color: inherit;
+    font-size: 36px;
+    font-style: italic;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: underline;
+    vertical-align: middle;
+}
+
+.tg .tg-52ho {
+    border-color: inherit;
+    font-size: 36px;
+    font-style: italic;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: underline;
+    vertical-align: top;
+}
+
+/* Media Query for Small Screens */
+@media screen and (max-width: 767px) {
+    .tg {
+        width: auto !important;
+    }
+
+    .tg col {
+        width: auto !important;
+    }
+
+    /* Wrap Table for Horizontal Scrolling on Small Screens */
+    .tg-wrap {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        margin: auto 0px;
+    }
+}

@@ -48,7 +48,6 @@
 
         </form>
 
-
     </div>
 </div>
 
@@ -58,48 +57,49 @@
 <?php 
     //Przetwórz dane i zapisz w bazie
 
-    //Zobacz czy guzik jest wciśnięty or not
+    // Check if the submit button is pressed or not
 
     if(isset($_POST['submit']))
     {
-        // Kliknięty
-        //echo "Wciśnięty guzik";
+        // Button clicked
+        // echo "Button clicked";
+        //that;s leftover from basic testing
 
-        //1. Zbierz dane z formularza POSTem
+        // 1. Collect data from the form using POST
         $full_name = $_POST['full_name'];
         $username = $_POST['username'];
-        $password = md5($_POST['password']); //Enkrypcja haseł z użyciem MD5
+        $password = md5($_POST['password']); // Encrypt passwords using MD5
 
-        //2. Zapisanie danych w bazie 
+        // 2. Save data to the database
         $sql = "INSERT INTO tbl_admin SET 
             full_name='$full_name',
             username='$username',
             password='$password'
         ";
- 
-        //3. Wykonanie zapytania i zapisanie danych
-        $res = mysqli_query($conn, $sql) or die(mysqli_error());
 
-        //4. Zobacz czy przeszło i wyświetl dane odpowiednio
+        // 3. Execute the query and save the data
+        $res = mysqli_query($conn, $sql) or die(mysqli_error($conn));
+
+        // 4. Check if it passed and display data accordingly
         if($res==TRUE)
         {
-            //Dane wsadzone do bazy
-            //echo "Wsadzoned";
-            //Stwórz nową zmienną sesji i wyświetl wiadomość
-            $_SESSION['add'] = "<div class='success'>Dodano admina</div>";
-            //Redirect do panelu admina 
+            // Data inserted into the database
+            // echo "Inserted";
+            //also pozostałość po testach
+            // Create a new session variable and display a message
+            $_SESSION['add'] = "<div class='success'>Admin added successfully</div>";
+           // Redirect do panelu admina 
             header("location:".SITEURL.'admin/manage-admin.php');
         }
         else
         {
             //Odrzuconed
             //echo "Odrzuconed";
+            //also pozostałość po testach
             //Stwórz nową zmienną sesji i wyświetl wiadomość
             $_SESSION['add'] = "<div class='error'>Admin się nie dodał</div>";
             //Redirect do admina
             header("location:".SITEURL.'admin/add-admin.php');
         }
-
     }
-    
 ?>

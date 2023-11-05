@@ -8,16 +8,16 @@
 
         <?php 
         
-            if(isset($_SESSION['add']))
+            if(isset($_SESSION['add'])) // Check if 'add' session is set
             {
-                echo $_SESSION['add'];
-                unset($_SESSION['add']);
+                echo $_SESSION['add']; // Display 'add' session message
+                unset($_SESSION['add']); // Clear the 'add' session message
             }
 
-            if(isset($_SESSION['upload']))
+            if(isset($_SESSION['upload'])) // Check if 'upload' session is set
             {
-                echo $_SESSION['upload'];
-                unset($_SESSION['upload']);
+                echo $_SESSION['upload']; // Display 'upload' session message
+                unset($_SESSION['upload']); // Clear the 'upload' session message
             }
         
         ?>
@@ -83,7 +83,6 @@
                 if(isset($_POST['featured']))
                 {
                     //Zbierz dane z formularza
-
                     $featured = $_POST['featured'];
                 }
                 else
