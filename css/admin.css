@@ -38,7 +38,8 @@ table {
     width: 100%;
 }
 
-th, td {
+th,
+td {
     padding: 8px;
     text-align: left;
     border-bottom: 1px solid #ddd;
@@ -140,6 +141,7 @@ table tr td {
 .menu ul li a:hover {
     color: red;
 }
+
 /* CSS for głównego kontentu strony*/
 /* Main Content Styles */
 .main-content {
@@ -156,12 +158,14 @@ table tr td {
     padding: 2%;
     float: left;
 }
+
 /* CSS for stopki */
 /* Footer Styles */
 .footer {
     background-color: aqua;
     color: white;
 }
+
 /* CSS for logowania */
 /* Login Form Styles */
 .login {

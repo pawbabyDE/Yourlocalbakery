@@ -1,76 +1,69 @@
 <?php include('partials-front/menu.php'); ?>
 
-<!-- Sekcja szukania jedzenia -->
+<?php
+// Check if the search query is set
+if (isset($_POST['search'])) {
+    // It's set, so retrieve it
+    $search = $_POST['search'];
+    // Sanitize the search input
+    $search = mysqli_real_escape_string($conn, $search);
+} else {
+    // If the search query is not set, you may want to handle this case (e.g., show an error message).
+    // For now, let's set it to an empty string.
+    $search = '';
+}
+?>
+
+<!-- Food Search Section -->
 <section class="food-search text-center">
     <div class="container">
-        <?php 
-            
-            //Zbierz z paska czego szukasz
-            // Collect the user's search query from the input field
-            $search = $_POST['search'];
-        
-        ?>
-
-
-        <h2><a href="#" class="text-white">Żarło "<?php echo $search; ?>"</a></h2> <!--Trzeba ustalić gdzie to  konkretnie jest & zmienić -->
-
+        <h2><a href="#" class="text-white">Żarło "<?php echo htmlspecialchars($search); ?>"</a></h2>
     </div>
 </section>
-<!-- Koniec -->
 
-<!-- Sekcja menu jedzenia -->
+<!-- Food Menu Section -->
 <section class="food-menu">
     <div class="container">
         <h2 class="text-center">Menu</h2>
 
-        <?php 
-            //Zapytanie SQL aby znalazło jedzenie bazując na tym co wyszukujesz
-            // SQL query to find food items based on user's search query
-            // In short, it retrieves data from the 'tbl_food' table where the title or description is similar or identical to the user's search
-            $sql = "SELECT * FROM tbl_food WHERE title LIKE '%$search%' OR description LIKE '%$search%'";
+        <?php
+        // Create an SQL query to find food items based on the user's search query using prepared statements
+        $sql = "SELECT * FROM tbl_food WHERE title LIKE ? OR description LIKE ?";
+        $stmt = mysqli_prepare($conn, $sql);
 
-            //Wykonaj zapytanie
-            // Connects to the database and sends the query
-            $res = mysqli_query($conn, $sql);
+        if ($stmt) {
+            // Bind the search parameter to the prepared statement
+            $searchParam = '%' . $search . '%';
+            mysqli_stmt_bind_param($stmt, "ss", $searchParam, $searchParam);
 
-            //Policz wiersze
-            // idk why the fuck it is here. but it seems like it has to be here no matter fucking what
-            $count = mysqli_num_rows($res);
+            // Execute the prepared statement
+            mysqli_stmt_execute($stmt);
 
-            // Sprawdza czy dostępne
-            // idfk why but okay. doesn't matter why, what matters is that it fucking works
-            if($count>0)
-            {
-                // Dostępne
-                while($row=mysqli_fetch_assoc($res))
-                {
-                    // Pokaż mi swoje towary(sprawdza detale zamówienia)
+            // Get the result
+            $result = mysqli_stmt_get_result($stmt);
+
+            // Check if food items are available
+            if (mysqli_num_rows($result) > 0) {
+                while ($row = mysqli_fetch_assoc($result)) {
+                    // Retrieve food item details
                     $id = $row['id'];
-                    $title = $row['title'];
+                    $title = htmlspecialchars($row['title']); // Escape output to prevent XSS
                     $price = $row['price'];
-                    $description = $row['description'];
+                    $description = htmlspecialchars($row['description']); // Escape output to prevent XSS
                     $image_name = $row['image_name'];
                     ?>
 
                     <div class="food-menu-box">
                         <div class="food-menu-img">
-                            <?php 
-                                // Sprawdź czy nie ma 404 na zdj
-                                if($image_name=="")
-                                {
-                                    // Jest 404 
-                                    echo "<div class='error'>Image not Available.</div>";
-                                }
-                                else
-                                {
-                                    // Errorn't 
-                                    ?>
-                                    <img src="<?php echo SITEURL; ?>images/food/<?php echo $image_name; ?>" alt="Chicke Hawain Pizza" class="img-responsive img-curve">
-                                    <?php 
-
-                                }
+                            <?php
+                            if (empty($image_name)) {
+                                echo "<div class='error'>Image not Available.</div>";
+                            } else {
+                                ?>
+                                <img src="<?php echo SITEURL; ?>images/food/<?php echo $image_name; ?>" alt="<?php echo $title; ?>" class="img-responsive img-curve">
+                                <?php
+                            }
                             ?>
-                            
                         </div>
 
                         <div class="food-menu-desc">
@@ -87,19 +80,18 @@
 
                     <?php
                 }
-            }
-            else
-            {
-                // Nie znaleziono jedzenia
+            } else {
+                // No food found
                 echo "<div class='error'>Nie znaleziono Żarła.</div>";
             }
-        
+        } else {
+            // Error handling
+            echo "<div class='error'>Error: " . mysqli_error($conn) . "</div>";
+        }
         ?>
 
         <div class="clearfix"></div>
-
     </div>
 </section>
-<!-- Koniec -->
 
 <?php include('partials-front/footer.php'); ?>

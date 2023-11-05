@@ -1,31 +1,23 @@
 <?php include('partials-front/menu.php'); ?>
 
-
-
-<!-- Sekcja kategorii  -->
+<!-- Sekcja kategorii -->
 <section class="categories">
     <div class="container">
-        <h2 class="text-center">Nasza oferta</h2> <!--Do potencjalnej zmiany placeholdera, kategorie zamówień-->
+        <h2 class="text-center">Nasza oferta</h2><!--Do potencjalnej zmiany placeholdera, kategorie zamówień-->
 
         <?php
-
-        //Pokaż wszystkie aktywne kategorie
-        //Zapytanie SQL
+        // Show all active categories
         $sql = "SELECT * FROM tbl_category WHERE active='Yes'";
+        $stmt = mysqli_prepare($conn, $sql);
 
-        //Wykonanie sql'a
-        $res = mysqli_query($conn, $sql);
+        if ($stmt) {
+            mysqli_stmt_execute($stmt);
+            $result = mysqli_stmt_get_result($stmt);
 
-        //liczenie ilości wierszy
-        $count = mysqli_num_rows($res);
-
-        //zobacz czy dostępne czy nie
-        if ($count > 0) {
-            //kategorie dostepne
-            while ($row = mysqli_fetch_assoc($res)) {
-                //zdobywanie wartości
+            while ($row = mysqli_fetch_assoc($result)) {
                 $id = $row['id'];
-                $title = $row['title'];
+                $title = htmlspecialchars($row['title']); // Use htmlspecialchars to prevent XSS
+
                 $image_name = $row['image_name'];
         ?>
 
@@ -36,13 +28,12 @@
                             //Error 404 na zdjęcia
                             echo "<div class='error'>Error 404. Zdjęcie nie znalezione</div>";
                         } else {
-                            //Errorn't
+                        //Errorn't
                         ?>
-                            <img src="<?php echo SITEURL; ?>images/category/<?php echo $image_name; ?>" alt="Pizza" class="img-responsive img-curve">
+                            <img src="<?php echo SITEURL; ?>images/category/<?php echo $image_name; ?>" alt="<?php echo $title; ?>" class="img-responsive img-curve">
                         <?php
                         }
                         ?>
-
 
                         <h3 class="float-text text-white"><?php echo $title; ?></h3>
                     </div>
@@ -50,13 +41,13 @@
 
         <?php
             }
+
+            mysqli_stmt_close($stmt);
         } else {
-            //404 na kategorie
-            echo "<div class='error'>Error 404. Kategoria nie znaleziona.</div>";
+            // Error handling
+            echo "<div class='error'>Error: " . mysqli_error($conn) . "</div>";
         }
-
         ?>
-
 
         <div class="clearfix"></div>
     </div>

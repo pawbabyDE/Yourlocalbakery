@@ -6,14 +6,12 @@
         <br><br>
 
         <?php 
-            if(isset($_GET['id']))
-            {
-                $id=$_GET['id'];
+            if (isset($_GET['id'])) {
+                $id = $_GET['id'];
             }
         ?>
 
         <form action="" method="POST">
-        
             <table class="tbl-30">
                 <tr>
                     <td>Aktualne hasło: </td>
@@ -42,100 +40,56 @@
                         <input type="submit" name="submit" value="Zmień hasło" class="btn-secondary">
                     </td>
                 </tr>
-
             </table>
-
         </form>
-
     </div>
 </div>
 
 <?php 
+    // Sprawdź czy guzik jest wciśnięty
+    if (isset($_POST['submit'])) {
+        // Zbierz dane z formularza
+        $id = $_POST['id'];
+        $current_password = md5($_POST['current_password']);
+        $new_password = md5($_POST['new_password']);
+        $confirm_password = md5($_POST['confirm_password']);
 
-            //Sprawdź czy guzik jest wciśnięty
+        // Sprawdź czy nowe hasło i potwierdzenie są zgodne
+        if ($new_password == $confirm_password) {
+            // Sprawdź czy użytkownik istnieje w bazie i hasło się zgadza
+            $sql = "SELECT * FROM tbl_admin WHERE id=$id AND password='$current_password'";
+            $res = mysqli_query($conn, $sql);
 
-            if(isset($_POST['submit']))
-            {
-                //echo "Wciśnięty";
+            if ($res == true) {
+                // Sprawdź czy użytkownik istnieje
+                $count = mysqli_num_rows($res);
 
-                //1. Zbierz dane z formularza
+                if ($count == 1) {
+                    // Użytkownik istnieje i można zmienić hasło
+                    $sql2 = "UPDATE tbl_admin SET password='$new_password' WHERE id=$id";
+                    $res2 = mysqli_query($conn, $sql2);
 
-                $id=$_POST['id'];
-                $current_password = md5($_POST['current_password']);
-                $new_password = md5($_POST['new_password']);
-                $confirm_password = md5($_POST['confirm_password']);
-
-
-                //2. Sprawdź czy jest w bazie
-                $sql = "SELECT * FROM tbl_admin WHERE id=$id AND password='$current_password'";
-
-                //Wykonaj Query
-                $res = mysqli_query($conn, $sql);
-
-                if($res==true)
-                {
-                    //Sprawdź czy jest dostępne
-                    $count=mysqli_num_rows($res);
-
-                    if($count==1)
-                    {
-                        //Istnieje & można zmieniać
-                        //echo "Znalazłam kto pytał!";
-
-                        //Sprawdź czy hasła pasują or not
-                        if($new_password==$confirm_password)
-                        {
-                            //Zmień hasło
-                            $sql2 = "UPDATE tbl_admin SET 
-                                password='$new_password' 
-                                WHERE id=$id
-                            ";
-
-                            //Execute the Query
-                            $res2 = mysqli_query($conn, $sql2);
-
-                            //Sprawdź czy się wykonało
-                            if($res2==true)
-                            {
-                                //Sukces
-                                //Redirect z wiad że się wykonało
-                                $_SESSION['change-pwd'] = "<div class='success'>Hasło zostało zmienione. </div>";
-                                //Redirect 
-                                header('location:'.SITEURL.'admin/manage-admin.php');
-                            }
-                            else
-                            {
-                                //Pokaż error
-                                //Redirect z wiadomością
-                                $_SESSION['change-pwd'] = "<div class='error'>Nie udało się zmienić hasła. </div>";
-                                //Redirect 
-                                header('location:'.SITEURL.'admin/manage-admin.php');
-                            }
-                        }
-                        else
-                        {
-                            //Redirect
-                            $_SESSION['pwd-not-match'] = "<div class='error'> Hasła się nie zgadzają.</div>";
-                            //Redirect 
-                            header('location:'.SITEURL.'admin/manage-admin.php');
-
-                        }
-                    }
-                    else
-                    {
-                        //User nie istnieje
-                        $_SESSION['user-not-found'] = "<div class='error'>Nie znaleziono użytkownika </div>";
-                        //Redirect 
+                    if ($res2 == true) {
+                        // Hasło zaktualizowane pomyślnie
+                        $_SESSION['change-pwd'] = "<div class='success'>Hasło zostało zmienione. </div>";
+                        header('location:'.SITEURL.'admin/manage-admin.php');
+                    } else {
+                        // Błąd podczas aktualizacji hasła
+                        $_SESSION['change-pwd'] = "<div class='error'>Nie udało się zmienić hasła. </div>";
                         header('location:'.SITEURL.'admin/manage-admin.php');
                     }
+                } else {
+                    // Użytkownik nie istnieje
+                    $_SESSION['user-not-found'] = "<div class='error'>Nie znaleziono użytkownika </div>";
+                    header('location:'.SITEURL.'admin/manage-admin.php');
                 }
-
-                //3. Potwierdź wszystko
-
-                //4. Zmień hasło jeśli wszystko się zgadza
             }
-
+        } else {
+            // Hasła nie zgadzają się
+            $_SESSION['pwd-not-match'] = "<div class='error'> Hasła się nie zgadzają.</div>";
+            header('location:'.SITEURL.'admin/manage-admin.php');
+        }
+    }
 ?>
-
 
 <?php include('partials/footer.php'); ?>

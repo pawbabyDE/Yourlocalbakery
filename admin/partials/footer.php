@@ -1,7 +1,7 @@
 
 <div class="footer">
             <div class="wrapper">
-                <p class="text-center"> Paulina Jaszul & Dawid Wolak</a></p>
+                <p class="text-center"> PLACEHOLDER FOR NAME</a></p>
             </div>
         </div>
   
