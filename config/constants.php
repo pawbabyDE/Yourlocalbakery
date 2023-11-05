@@ -4,7 +4,7 @@
 
 
     //Utwórz stałe aby nie były one powtarzalne
-    define('SITEURL', 'http://localhost/yrlb/'); //URL strony
+    define('SITEURL', 'http://localhost/Yourlocalbakery/'); //URL strony
     define('LOCALHOST', 'localhost'); //localhost = adres potencjalnego serwera
     define('DB_USERNAME', 'root'); //usr do DB
     define('DB_PASSWORD', ''); //pwd do DB 
