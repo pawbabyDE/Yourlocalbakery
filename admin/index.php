@@ -2,6 +2,18 @@
     // Include 'partials/menu.php' here
     include('partials/menu.php');
 ?>
+<?php
+session_start();
+
+if (!isset($_SESSION['login'])) {
+  // Redirect the user to the login page if they are not logged in
+  header('location:' . SITEURL . 'admin/login.php');
+  exit;
+}
+
+// Display the admin index page
+echo 'You are logged in!';
+?>
 <!-- Start of the main content -->
 <div class="main-content">
     <div class="wrapper">
