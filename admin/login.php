@@ -14,29 +14,31 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
   // Check if the query executed successfully
   if (!mysqli_stmt_execute($stmt)) {
-    // Display an error message
-    $_SESSION['login_error'] = 'Something went wrong while logging in. Please try again later.';
+    // Redirect the user back to the login page
     header('location:' . SITEURL . 'admin/login.php');
-  } else {
-    // Get the result of the query
-    $result = mysqli_stmt_get_result($stmt);
-
-    // Check if the user exists and the password matches
-    if ($result && mysqli_num_rows($result) == 1 && password_verify($password, mysqli_fetch_assoc($result)['password'])) {
-      // Set the session variables and redirect to the admin index page
-      $_SESSION['login'] = true;
-      $_SESSION['user'] = $username;
-      header('Location:' . SITEURL . 'admin/index.php', true, 302);
-    } else {
-      // If the user is not found or the password does not match, display an error message
-      $_SESSION['login_error'] = 'Invalid username or password.';
-      header('location:' . SITEURL . 'admin/login.php');
-    }
-
-    // Close the prepared statement
-    mysqli_stmt_close($stmt);
+    exit;
   }
+
+  // Get the result of the query
+  $result = mysqli_stmt_get_result($stmt);
+
+  // Check if the user exists and the password matches
+  if ($result && mysqli_num_rows($result) == 1 && password_verify($password, mysqli_fetch_assoc($result)['password'])) {
+    // Set the session variables and redirect the user to the admin index page
+    $_SESSION['login'] = true;
+    $_SESSION['user'] = $username;
+    header('location:' . SITEURL . 'admin/index.php');
+    exit;
+  } else {
+    // Redirect the user back to the login page
+    header('location:' . SITEURL . 'admin/login.php');
+    exit;
+  }
+
+  // Close the prepared statement
+  mysqli_stmt_close($stmt);
 }
+
 ?>
 
 <html>
