@@ -22,31 +22,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   // Get the result of the query
   $result = mysqli_stmt_get_result($stmt);
 
-    if ($result && mysqli_num_rows($result) == 1) {
-        $row = mysqli_fetch_assoc($result);
-        $db_password = $row['password'];
+  // Check if the user exists and the password matches
+  if ($result && mysqli_num_rows($result) == 1 && password_verify($password, mysqli_fetch_assoc($result)['password'])) {
+    // Redirect the user to the admin index page
+    header('location:' . SITEURL . 'admin/index.php', true, 302);
 
-        // Verify the password using password_hash
-        if (password_verify($password, $db_password)) {
-            // Password matches, set session and redirect
-            $_SESSION['login'] = "<div class='success'>Zalogowane.</div>";
-            $_SESSION['user'] = $username;
-            header('Location: ' . SITEURL . 'admin/index.php', true, 302);
-
-        } else {
-            // Password does not match
-            $_SESSION['login'] = "<div class='error text-center'>Dane jakie zostały wprowadzone nie pasują</div>";
-            header('location:' . SITEURL . 'admin/login.php');
-        }
-    } else {
-        // User not found
-        $_SESSION['login'] = "<div class='error text-center'>Dane jakie zostały wprowadzone nie pasują</div>";
-        header('location:' . SITEURL . 'admin/login.php');
-    }
+    // Set the session variables after redirecting the user
+    $_SESSION['login'] = true;
+    $_SESSION['user'] = $username;
+  } else {
+    // Redirect the user back to the login page
+    header('location:' . SITEURL . 'admin/login.php');
+  }
 
   // Close the prepared statement
   mysqli_stmt_close($stmt);
 }
+
 ?>
 
 <html>
