@@ -30,7 +30,7 @@ VALUES (
     12,
     'Administrator',
     'admin',
-    'E10ADC3949BA59ABBE56E057F20F883E'
+    '827ccb0eea8a706c4c34a16891f84e7b'
   );
 CREATE TABLE `tbl_category` (
   `id` int(10) UNSIGNED NOT NULL,
