@@ -23,7 +23,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // Password matches, set session and redirect
             $_SESSION['login'] = "<div class='success'>Zalogowane.</div>";
             $_SESSION['user'] = $username;
-            header('location:' . SITEURL . 'admin/');
+            header('Location: ' . SITEURL . 'admin/index.php', true, 302);
+
         } else {
             // Password does not match
             $_SESSION['login'] = "<div class='error text-center'>Dane jakie zostały wprowadzone nie pasują</div>";
