@@ -27,6 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Set the session variables and redirect the user to the admin index page
     $_SESSION['login'] = true;
     $_SESSION['user'] = $username;
+    sleep(5); // This line has been added to give the server time to process the login request
     header('location:' . SITEURL . 'admin/index.php');
     exit;
   } else {
@@ -38,7 +39,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   // Close the prepared statement
   mysqli_stmt_close($stmt);
 }
-
 ?>
 
 <html>

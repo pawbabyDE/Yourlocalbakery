@@ -10,6 +10,9 @@ if (!isset($_SESSION['login'])) {
   header('location:' . SITEURL . 'admin/login.php');
   exit;
 }
+
+// Display the admin index page
+echo 'You are logged in!';
 ?>
 <!-- Start of the main content -->
 <div class="main-content">
